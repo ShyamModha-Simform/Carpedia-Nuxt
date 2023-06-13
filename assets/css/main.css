@@ -1,0 +1,73 @@
+@import url("https://fonts.googleapis.com/css2?family=Raleway:wght@100;200;300;400;500;700;800;900&display=swap");
+
+* {
+    padding: 0;
+    margin: 0;
+    font-family: "Raleway";
+    word-wrap: break-word;
+    -webkit-overflow-scrolling: touch;
+}
+
+:root {
+    font-size: 16px;
+    /* font-family: "Raleway"; */
+    --heading-color: hsl(0, 0%, 7%);
+    --date-text-color: hsl(0, 0%, 51%);
+    --previous-price-text-color: hsl(0, 98%, 44%);
+    --current-price-text-color: hsla(0, 0%, 0%, 0.822);
+    --liked-heart-icon-color: hsl(0, 98%, 44%);
+    --heart-icon-color: whitesmoke;
+    --pricing-font-weight: 800;
+    --title-font-weight: 800;
+    --date-font-weight: 550;
+    --header-background: rgb(96, 109, 117);
+
+    /* Cards colors */
+    --card-main-color: whitesmoke;
+    --card-1-secondary-color: rgb(178, 180, 179);
+    --card-2-secondary-color: rgb(67, 53, 27);
+    --card-3-secondary-color: rgb(178, 180, 179);
+    --card-4-secondary-color: rgb(96, 109, 117);
+}
+
+html {
+    width: 100%;
+    height: 100%;
+}
+
+body {
+    background-color: rgb(230, 232, 231);
+}
+
+a {
+    text-decoration: none;
+}
+
+.card-container input {
+    display: none;
+}
+
+.card-container {
+    max-width: 100em;
+    /* background-color: lightgreen; */
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    justify-content: center;
+    align-content: flex-start;
+    margin: auto;
+    min-height: 30em;
+
+    box-sizing: border-box;
+    position: relative;
+}
+
+.fa-shopping-cart {
+    font-size: 1.3rem;
+    top: 0;
+    transform: translateY(50%);
+}
+
+.card-div:hover {
+    transform: translate(0, -10px);
+}
