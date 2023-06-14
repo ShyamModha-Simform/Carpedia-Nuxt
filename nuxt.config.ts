@@ -20,6 +20,15 @@ export default defineNuxtConfig({
             },
         ],
     ],
-
-    css: ["bootstrap/dist/css/bootstrap.min.css", "@/assets/css/main.css"],
+    build: {
+        transpile: ["vuetify"],
+    },
+    app: {
+        pageTransition: { name: "fade-pages", mode: "out-in" },
+    },
+    css: [
+        "bootstrap/dist/css/bootstrap.min.css",
+        "vuetify/lib/styles/main.sass",
+        "@/assets/css/main.css",
+    ],
 });

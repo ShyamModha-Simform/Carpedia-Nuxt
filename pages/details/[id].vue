@@ -32,6 +32,10 @@
     import { storeToRefs } from "pinia";
     import useCarDataStore from "../../stores/carData";
 
+    definePageMeta({
+        middleware: ["auth"],
+    });
+
     const carDataStore = useCarDataStore();
     const route = useRoute();
     const { getIsLoaderStarted, getDetailsOfSelectedCar: carDetail } =

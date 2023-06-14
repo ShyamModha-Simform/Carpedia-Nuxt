@@ -1,13 +1,7 @@
 <template>
     <div class="card-container--layer">
         <div class="add-car-container">
-            <BaseButton
-                class="card"
-                size="lg"
-                @click="modalType = 'add'"
-                data-bs-toggle="modal"
-                data-bs-target="#backdrop-overlay-modal"
-            >
+            <BaseButton class="card" size="lg" @click="openAddCarModal">
                 Add
             </BaseButton>
         </div>
@@ -31,7 +25,7 @@
 </template>
 
 <script setup>
-    // import Swal from "sweetalert2";
+    import Swal from "sweetalert2";
     import useCarDataStore from "../stores/carData";
     import { storeToRefs } from "pinia";
     import useModalFormStore from "../stores/modalForm";
@@ -40,54 +34,41 @@
     const carDataStore = useCarDataStore();
     const { getCarDetails: carDetails } = storeToRefs(carDataStore);
     const { deleteCar, fetchAllCars } = carDataStore;
-    const { modalType } = storeToRefs(modalFormStore);
+    const { modalType, openModal } = storeToRefs(modalFormStore);
+
+    // Add Car Modal Handler
+    const openAddCarModal = () => {
+        modalType.value = "add";
+        openModal.value = true;
+    };
 
     // Delete Car Handler
     async function triggerDeleteCarHandler(carId, carToBeDeleted) {
-        if (confirm("Are you sure want to delete?")) {
-            try {
-                const res = await deleteCar(carId);
-                await fetchAllCars();
-                if (res?.status === 204) {
-                    // TODO:
-                    // Swal.fire(
-                    //     `Deleted ${carToBeDeleted.name}!`,
-                    //     "Your file has been deleted.",
-                    //     "success"
-                    // );
-                    alert(`Deleted ${carToBeDeleted.name}!`);
+        Swal.fire({
+            title: "Are you sure?",
+            text: "You won't be able to revert this!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Yes, delete it!",
+        }).then(async (result) => {
+            if (result.isConfirmed) {
+                try {
+                    const res = await deleteCar(carId);
+                    await fetchAllCars();
+                    if (res?.status === 204) {
+                        Swal.fire(
+                            `Deleted ${carToBeDeleted.name}!`,
+                            "Your file has been deleted.",
+                            "success"
+                        );
+                    }
+                } catch (e) {
+                    alert("Something went wrong!");
                 }
-            } catch (e) {
-                alert("Something went wrong!");
             }
-        }
-
-        // TODO: Remove once it's not needed
-        // Swal.fire({
-        //     title: "Are you sure?",
-        //     text: "You won't be able to revert this!",
-        //     icon: "warning",
-        //     showCancelButton: true,
-        //     confirmButtonColor: "#3085d6",
-        //     cancelButtonColor: "#d33",
-        //     confirmButtonText: "Yes, delete it!",
-        // }).then(async (result) => {
-        //     if (result.isConfirmed) {
-        //         try {
-        //             const res = await deleteCar(carId);
-        //             await fetchAllCars();
-        //             if (res?.status === 204) {
-        //                 Swal.fire(
-        //                     `Deleted ${carToBeDeleted.name}!`,
-        //                     "Your file has been deleted.",
-        //                     "success"
-        //                 );
-        //             }
-        //         } catch (e) {
-        //             alert("Something went wrong!");
-        //         }
-        //     }
-        // });
+        });
     }
 </script>
 

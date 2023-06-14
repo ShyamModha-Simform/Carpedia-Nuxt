@@ -1,4 +1,4 @@
-import { defineStore } from 'pinia';
+import { defineStore } from "pinia";
 
 const getters = {
     getModalType() {
@@ -9,10 +9,11 @@ const getters = {
     },
 };
 
-const useModalFormStore = defineStore('modalForm', {
+const useModalFormStore = defineStore("modalForm", {
     state: () => {
         return {
-            modalType: 'add',
+            modalType: "add",
+            openModal: false,
             selectedCarForEditing: {},
         };
     },

@@ -38,6 +38,7 @@ const actions = {
                     "token",
                     GENERATE_RANDOM_TOKEN(loginCredentials.password.length)
                 );
+                localStorage.setItem("isAuthenticated", true);
                 this.isLoaderStarted = false;
                 this.isAuthenticated = true;
                 return { status: 200, statusText: "Logged in Successfully!" };
@@ -70,6 +71,7 @@ const actions = {
     handleLogout() {
         localStorage.removeItem("token");
         localStorage.removeItem("username");
+        localStorage.removeItem("isAuthenticated");
         this.username = null;
         this.isAuthenticated = false;
     },

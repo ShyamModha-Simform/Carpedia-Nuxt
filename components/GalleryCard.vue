@@ -42,12 +42,14 @@
     const emits = defineEmits(["delete-car-details"]);
     const props = defineProps(["carDetail"]);
     const modalFormStore = useModalFormStore();
-    const { selectedCarForEditing, modalType } = storeToRefs(modalFormStore);
+    const { selectedCarForEditing, modalType, openModal } =
+        storeToRefs(modalFormStore);
 
     // Methods
     function editCarDetails() {
         // Setting value in global store which will automatically reactive at other components
         modalType.value = "edit";
+        openModal.value = true;
         selectedCarForEditing.value = { ...props.carDetail };
         // we are passing object by value instead of passing by reference
     }
