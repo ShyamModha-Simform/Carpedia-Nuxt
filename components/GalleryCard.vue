@@ -14,7 +14,7 @@
                 </div>
                 <div>
                     <img
-                        src="../public/images/edit_icon.png"
+                        src="/images/edit_icon.png"
                         class="edit-icon"
                         alt="editIcon"
                         @click="editCarDetails"
@@ -22,10 +22,10 @@
                         data-bs-target="#backdrop-overlay-modal"
                     />
                     <img
-                        src="../public/images/delete_icon.png"
+                        src="/images/delete_icon.png"
                         class="edit-icon"
                         alt="editIcon"
-                        @click="deleteCarDetails"
+                        @click="swal_delete_confirmation(carDetail)"
                     />
                 </div>
             </div>
@@ -34,13 +34,14 @@
 </template>
 
 <script setup>
-    //
-    import useModalFormStore from "../stores/modalForm";
+    import useModalFormStore from "~/stores/modalForm";
     import { storeToRefs } from "pinia";
+    import Swal from "sweetalert2";
+    import useCarDataStore from "~/stores/carData";
 
     // State and Variables
-    const emits = defineEmits(["delete-car-details"]);
     const props = defineProps(["carDetail"]);
+    const { deleteCar, fetchAllCars } = useCarDataStore();
     const modalFormStore = useModalFormStore();
     const { selectedCarForEditing, modalType, openModal } =
         storeToRefs(modalFormStore);
@@ -53,8 +54,32 @@
         selectedCarForEditing.value = { ...props.carDetail };
         // we are passing object by value instead of passing by reference
     }
-    function deleteCarDetails() {
-        emits("delete-car-details", props.carDetail.id, props.carDetail);
+    function swal_delete_confirmation(carDetail) {
+        Swal.fire({
+            title: "Are you sure?",
+            text: "You won't be able to revert this!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Yes, delete it!",
+        }).then(async (result) => {
+            if (result.isConfirmed) {
+                try {
+                    const res = await deleteCar(carDetail.id);
+                    await fetchAllCars();
+                    if (res?.status === 204) {
+                        Swal.fire(
+                            `Deleted ${carDetail.name}!`,
+                            "Your file has been deleted.",
+                            "success"
+                        );
+                    }
+                } catch (e) {
+                    alert("Something went wrong!");
+                }
+            }
+        });
     }
     const displayTruncatedDescription = computed(() => {
         return props.carDetail?.details?.slice(0, 200) + "...";

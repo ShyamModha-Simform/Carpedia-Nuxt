@@ -157,9 +157,10 @@
 
 <script setup>
     import Swal from "sweetalert2";
-    import useCarDataStore from "../stores/carData";
-    import useModalFormStore from "../stores/modalForm";
+    import useCarDataStore from "~/stores/carData";
+    import useModalFormStore from "~/stores/modalForm";
     import { storeToRefs } from "pinia";
+    import swal_alert_helper from "~/utils/swal_alert.js";
 
     const schema = {
         carName: "required|alpha_spaces",
@@ -200,25 +201,7 @@
                 : await updateCar(selectedCarForEditing.value);
 
         if (res?.status == 201 || res?.status == 200) {
-            Swal.fire({
-                title: `${temp === "edit" ? "Updated" : "Created"} data`,
-                html: `
-              <div style="display: flex; align-items: center; justify-content: space-between;">
-                <div>
-                    <img src="${selectedCarForEditing.value.image}" alt="Logo" style="width: 300px;" />
-                    <h3>${selectedCarForEditing.value.name}</h3>
-                        <p>Price: ${selectedCarForEditing.value.price}</p>
-                    <p>Details: ${selectedCarForEditing.value.details}</p>
-              </div>
-              </div> `,
-                showCloseButton: true,
-                showConfirmButton: true,
-                showCancelButton: false,
-                focusConfirm: false,
-                allowOutsideClick: false,
-                allowEscapeKey: false,
-            });
-
+            swal_alert_helper(temp, selectedCarForEditing.value);
             closeForm.value.click();
         }
         buttonLoader.value = false;

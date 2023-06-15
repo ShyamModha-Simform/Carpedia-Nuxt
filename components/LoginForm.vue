@@ -43,7 +43,7 @@
 
 <script setup>
     import { storeToRefs } from "pinia";
-    import useAuthStore from "../stores/authStore";
+    import useAuthStore from "~/stores/authStore";
 
     const authStore = useAuthStore();
     const { getIsLoaderStarted } = storeToRefs(authStore);

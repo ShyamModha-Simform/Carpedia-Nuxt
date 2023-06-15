@@ -80,7 +80,7 @@ const actions = {
 const useAuthStore = defineStore("authStore", {
     state: () => {
         return {
-            isAuthenticated: false,
+            isAuthenticated: useStorage("isAuthenticated", false).value,
             isLoaderStarted: false,
             username: useStorage("username", null).value,
         };

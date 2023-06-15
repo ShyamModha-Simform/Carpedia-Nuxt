@@ -26,7 +26,7 @@
                 <div class="user_detail" v-if="isAuthenticated">
                     <img
                         class="user_logo"
-                        src="../public/images/userlogo.png"
+                        src="/images/userlogo.png"
                         alt="userlogo"
                     />
                     <h4>{{ getLoggedInUserName }}</h4>
@@ -72,7 +72,7 @@
 
 <script setup>
     import { storeToRefs } from "pinia";
-    import useAuthStore from "../stores/authStore";
+    import useAuthStore from "~/stores/authStore";
 
     const authStore = useAuthStore();
     const { isAuthenticated, getLoggedInUserName } = storeToRefs(authStore);

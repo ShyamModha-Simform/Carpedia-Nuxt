@@ -30,11 +30,7 @@
 
 <script setup>
     import { storeToRefs } from "pinia";
-    import useCarDataStore from "../../stores/carData";
-
-    definePageMeta({
-        middleware: ["auth"],
-    });
+    import useCarDataStore from "~/stores/carData";
 
     const carDataStore = useCarDataStore();
     const route = useRoute();
@@ -42,7 +38,21 @@
         storeToRefs(carDataStore);
     const { fetchCarDetailsById } = carDataStore;
 
-    fetchCarDetailsById(route.params.id);
+    useHead({
+        title: `${route.params.id} | Carpedia`,
+    });
+
+    definePageMeta({
+        middleware: ["auth"],
+    });
+
+    const res = await fetchCarDetailsById(route.params.id);
+    console.log(res);
+    if (res?.status !== 200) {
+        alert("Couldn't able to fetch car details");
+        useRouter().go(-1);
+        // navigateTo("/");
+    }
 </script>
 
 <style scoped>

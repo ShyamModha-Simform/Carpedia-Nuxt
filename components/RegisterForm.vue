@@ -152,7 +152,7 @@
 <script setup>
     // Imports
     import { storeToRefs } from "pinia";
-    import useAuthStore from "../stores/authStore";
+    import useAuthStore from "~/stores/authStore";
 
     // State
     const authStore = useAuthStore();

@@ -10,9 +10,7 @@ export default defineNuxtConfig({
         [
             "@vee-validate/nuxt",
             {
-                // disable or enable auto imports
                 autoImports: true,
-                // Use different names for components
                 componentNames: {
                     Form: "vForm",
                     Field: "vField",
@@ -24,7 +22,19 @@ export default defineNuxtConfig({
         transpile: ["vuetify"],
     },
     app: {
-        pageTransition: { name: "fade-pages", mode: "out-in" },
+        pageTransition: {
+            name: "fade-pages",
+            appear: true,
+        },
+        head: {
+            link: [
+                {
+                    rel: "icon",
+                    type: "image/png",
+                    href: "https://www.freeiconspng.com/uploads/honda-brv-red-png-pictures-3.png",
+                },
+            ],
+        },
     },
     css: [
         "bootstrap/dist/css/bootstrap.min.css",

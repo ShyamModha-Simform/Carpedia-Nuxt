@@ -7,7 +7,7 @@
         </div>
         <div class="no_cars_found" v-if="carDetails.length === 0">
             <h1>No Cars Found!</h1>
-            <img src="../public/images/No_cars.png" />
+            <img src="/images/No_cars.png" />
         </div>
 
         <div class="card-container" v-else>
@@ -15,7 +15,6 @@
                 <GalleryCard
                     v-for="(car, index) in carDetails"
                     :carDetail="car"
-                    @delete-car-details="triggerDeleteCarHandler"
                     :key="car.id"
                     :style="{ transitionDelay: `${0.03 * index}s` }"
                 />
@@ -26,9 +25,9 @@
 
 <script setup>
     import Swal from "sweetalert2";
-    import useCarDataStore from "../stores/carData";
+    import useCarDataStore from "~/stores/carData";
     import { storeToRefs } from "pinia";
-    import useModalFormStore from "../stores/modalForm";
+    import useModalFormStore from "~/stores/modalForm";
 
     const modalFormStore = useModalFormStore();
     const carDataStore = useCarDataStore();
@@ -43,33 +42,6 @@
     };
 
     // Delete Car Handler
-    async function triggerDeleteCarHandler(carId, carToBeDeleted) {
-        Swal.fire({
-            title: "Are you sure?",
-            text: "You won't be able to revert this!",
-            icon: "warning",
-            showCancelButton: true,
-            confirmButtonColor: "#3085d6",
-            cancelButtonColor: "#d33",
-            confirmButtonText: "Yes, delete it!",
-        }).then(async (result) => {
-            if (result.isConfirmed) {
-                try {
-                    const res = await deleteCar(carId);
-                    await fetchAllCars();
-                    if (res?.status === 204) {
-                        Swal.fire(
-                            `Deleted ${carToBeDeleted.name}!`,
-                            "Your file has been deleted.",
-                            "success"
-                        );
-                    }
-                } catch (e) {
-                    alert("Something went wrong!");
-                }
-            }
-        });
-    }
 </script>
 
 <style scoped>

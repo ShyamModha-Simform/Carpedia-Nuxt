@@ -1,11 +1,13 @@
-import axios from 'axios';
-import { defineStore } from 'pinia';
+import axios from "axios";
+import { defineStore } from "pinia";
 
 const actions = {
     async fetchAllCars() {
         try {
             this.isLoaderStarted = true;
-            let responseData = await axios.get(`${import.meta.env.VITE_BASE_URL}/cardata`);
+            let responseData = await axios.get(
+                `${import.meta.env.VITE_BASE_URL}/cardata`
+            );
             if (responseData.status === 200) {
                 // Updating global state
                 this.carsData = [...responseData.data.data];
@@ -19,9 +21,12 @@ const actions = {
     },
     async addCar(newCar) {
         try {
-            let responseData = await axios.post(`${import.meta.env.VITE_BASE_URL}/cardata`, {
-                ...newCar,
-            });
+            let responseData = await axios.post(
+                `${import.meta.env.VITE_BASE_URL}/cardata`,
+                {
+                    ...newCar,
+                }
+            );
             if (responseData?.status === 201) {
                 // After deleting fetch all car details again
                 await this.fetchAllCars();
@@ -64,11 +69,12 @@ const actions = {
             this.isLoaderStarted = true;
             let responseData = await axios.get(`	
         ${import.meta.env.VITE_BASE_URL}/cardata/${id}`);
-            this.isLoaderStarted = false;
             this.detailsOfSelectedCar = responseData.data;
+            this.isLoaderStarted = false;
+            return responseData;
         } catch (e) {
             this.isLoaderStarted = false;
-            alert("Couldn't able to fetch car details");
+            return { status: "404" };
         }
     },
 };
@@ -76,9 +82,6 @@ const actions = {
 const getters = {
     getCarDetails() {
         return this.carsData;
-    },
-    getSelectedCarIdForDetails() {
-        return this.selectedCarIdForDetails;
     },
     getIsLoaderStarted() {
         return this.isLoaderStarted;
@@ -88,7 +91,7 @@ const getters = {
     },
 };
 
-const useCarDataStore = defineStore('carData', {
+const useCarDataStore = defineStore("carData", {
     state: () => {
         return {
             carsData: [],

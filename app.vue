@@ -1,8 +1,5 @@
 <template>
     <NuxtLayout>
-        <NuxtLoadingIndicator>
-            <RectangularLoader />
-        </NuxtLoadingIndicator>
         <NuxtPage />
     </NuxtLayout>
 </template>
@@ -11,11 +8,19 @@
     import { useStorage } from "@vueuse/core";
     import useAuthStore from "./stores/authStore";
 
+    const showHideSpinner = ref(true);
+    onMounted(() => {
+        showHideSpinner.value = false;
+    });
+    console.log("=== App.vue ===");
+
     useAuthStore().isAuthenticated = useStorage("token", null).value
         ? true
         : false;
     useAuthStore().username = useStorage("username", null).value;
 </script>
+
+<script setup></script>
 
 <style>
     .fade-pages-enter-active,
