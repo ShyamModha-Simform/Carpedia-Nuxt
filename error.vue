@@ -1,6 +1,6 @@
 <template>
     <div class="not_found">
-        <img src="images/404Error-pana.png" alt="" />
+        <img src="public/images/404Error-pana.png" alt="" />
         <BaseButton class="card" size="lg" @click="backToHome"
             >Go Back To Home</BaseButton
         >
