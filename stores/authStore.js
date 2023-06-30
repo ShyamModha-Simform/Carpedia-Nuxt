@@ -24,7 +24,7 @@ const actions = {
             this.isLoaderStarted = true;
 
             let responseData = await axios.get(`	
-            ${process.env.VITE_BASE_URL}/users`);
+            https://testapi.io/api/dartya/resource/users`);
             const userExists = responseData.data.data?.find((user) => {
                 return (
                     user.email === loginCredentials.email &&
@@ -56,7 +56,7 @@ const actions = {
         try {
             this.isLoaderStarted = true;
             let responseData = await axios.post(
-                `${process.env.VITE_BASE_URL}/users`,
+                `https://testapi.io/api/dartya/resource/users`,
                 {
                     ...user,
                 }
