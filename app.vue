@@ -12,7 +12,6 @@
     onMounted(() => {
         showHideSpinner.value = false;
     });
-    console.log("=== App.vue ===");
 
     useAuthStore().isAuthenticated = useStorage("token", null).value
         ? true

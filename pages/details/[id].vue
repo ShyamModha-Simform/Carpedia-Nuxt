@@ -47,11 +47,10 @@
     });
 
     const res = await fetchCarDetailsById(route.params.id);
-    console.log(res);
+
     if (res?.status !== 200) {
         alert("Couldn't able to fetch car details");
         useRouter().go(-1);
-        // navigateTo("/");
     }
 </script>
 

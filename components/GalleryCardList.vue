@@ -41,7 +41,6 @@
         openModal.value = true;
     };
 
-    // Delete Car Handler
 </script>
 
 <style scoped>

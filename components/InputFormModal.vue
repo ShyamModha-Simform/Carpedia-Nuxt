@@ -184,7 +184,6 @@
     let buttonLoader = ref(false);
 
     function handleFormSubmit() {
-        console.log("clicked");
         clearTimeout(submitFormTimer);
         submitFormTimer = setTimeout(async () => {
             await createCar();
