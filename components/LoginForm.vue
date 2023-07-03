@@ -1,7 +1,6 @@
 <template>
     <div class="form-container--login">
         <h1>Login</h1>
-
         <vForm class="form" :validation-schema="schema" @submit="performLogin">
             <div class="group">
                 <vField

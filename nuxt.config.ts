@@ -1,5 +1,10 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
+    runtimeConfig: {
+        public: {
+            apiBase: process.env.VITE_BASE_URL,
+        },
+    },
     devtools: { enabled: true },
     imports: {
         dirs: ["stores"],
@@ -25,6 +30,7 @@ export default defineNuxtConfig({
         pageTransition: {
             name: "fade-pages",
             appear: true,
+            mode: "out-in",
         },
         head: {
             link: [

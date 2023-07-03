@@ -6,7 +6,7 @@ const actions = {
         try {
             this.isLoaderStarted = true;
             let responseData = await axios.get(
-                `${import.meta.env.VITE_BASE_URL}/cardata`
+                `${useRuntimeConfig().public.apiBase}/cardata`
             );
             if (responseData.status === 200) {
                 // Updating global state
@@ -22,7 +22,7 @@ const actions = {
     async addCar(newCar) {
         try {
             let responseData = await axios.post(
-                `${import.meta.env.VITE_BASE_URL}/cardata`,
+                `${useRuntimeConfig().public.apiBase}/cardata`,
                 {
                     ...newCar,
                 }
@@ -39,7 +39,7 @@ const actions = {
     async deleteCar(carId) {
         try {
             let responseData = await axios.delete(
-                `${import.meta.env.VITE_BASE_URL}/cardata/${carId}`
+                `${useRuntimeConfig().public.apiBase}/cardata/${carId}`
             );
             return responseData;
         } catch (e) {
@@ -50,7 +50,7 @@ const actions = {
     async updateCar(editedCar) {
         try {
             let responseData = await axios.put(
-                `${import.meta.env.VITE_BASE_URL}/cardata/${editedCar.id}`,
+                `${useRuntimeConfig().public.apiBase}/cardata/${editedCar.id}`,
                 {
                     ...editedCar,
                 }
@@ -68,7 +68,7 @@ const actions = {
         try {
             this.isLoaderStarted = true;
             let responseData = await axios.get(`	
-        ${import.meta.env.VITE_BASE_URL}/cardata/${id}`);
+        ${useRuntimeConfig().public.apiBase}/cardata/${id}`);
             this.detailsOfSelectedCar = responseData.data;
             this.isLoaderStarted = false;
             return responseData;
