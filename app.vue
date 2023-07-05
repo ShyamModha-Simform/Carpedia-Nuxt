@@ -7,6 +7,7 @@
 <script setup>
     import { useStorage } from "@vueuse/core";
     import useAuthStore from "./stores/authStore";
+    useRuntimeConfig();
 
     const showHideSpinner = ref(true);
     onMounted(() => {
