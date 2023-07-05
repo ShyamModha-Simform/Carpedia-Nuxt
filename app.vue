@@ -7,17 +7,21 @@
 <script setup>
     import { useStorage } from "@vueuse/core";
     import useAuthStore from "./stores/authStore";
-    useRuntimeConfig();
+    import useCarDataStore from "./stores/carData";
+    const {
+        public: { apiBase },
+    } = useRuntimeConfig();
+    const authStore = useAuthStore();
 
     const showHideSpinner = ref(true);
     onMounted(() => {
         showHideSpinner.value = false;
     });
 
-    useAuthStore().isAuthenticated = useStorage("token", null).value
-        ? true
-        : false;
-    useAuthStore().username = useStorage("username", null).value;
+    authStore.isAuthenticated = useStorage("token", null).value ? true : false;
+    authStore.username = useStorage("username", null).value;
+    authStore.apiBase = apiBase;
+    useCarDataStore().apiBase = apiBase;
 </script>
 
 <script setup></script>

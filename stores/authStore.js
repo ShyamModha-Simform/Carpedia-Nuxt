@@ -24,7 +24,7 @@ const actions = {
             this.isLoaderStarted = true;
 
             let responseData = await axios.get(`	
-            ${useRuntimeConfig().public.apiBase}/users`);
+            ${this.apiBase}/users`);
             const userExists = responseData.data.data?.find((user) => {
                 return (
                     user.email === loginCredentials.email &&
@@ -55,12 +55,9 @@ const actions = {
     async userRegistration(user) {
         try {
             this.isLoaderStarted = true;
-            let responseData = await axios.post(
-                `${useRuntimeConfig().public.apiBase}/users`,
-                {
-                    ...user,
-                }
-            );
+            let responseData = await axios.post(`${this.apiBase}/users`, {
+                ...user,
+            });
             this.isLoaderStarted = false;
             return responseData;
         } catch (e) {
@@ -83,6 +80,7 @@ const useAuthStore = defineStore("authStore", {
             isAuthenticated: useStorage("isAuthenticated", false).value,
             isLoaderStarted: false,
             username: useStorage("username", null).value,
+            apiBase: "",
         };
     },
     getters: {

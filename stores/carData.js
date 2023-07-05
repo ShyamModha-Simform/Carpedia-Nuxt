@@ -5,9 +5,7 @@ const actions = {
     async fetchAllCars() {
         try {
             this.isLoaderStarted = true;
-            let responseData = await axios.get(
-                `${useRuntimeConfig().public.apiBase}/cardata`
-            );
+            let responseData = await axios.get(`${this.apiBase}/cardata`);
             if (responseData.status === 200) {
                 // Updating global state
                 this.carsData = [...responseData.data.data];
@@ -21,12 +19,9 @@ const actions = {
     },
     async addCar(newCar) {
         try {
-            let responseData = await axios.post(
-                `${useRuntimeConfig().public.apiBase}/cardata`,
-                {
-                    ...newCar,
-                }
-            );
+            let responseData = await axios.post(`${this.apiBase}/cardata`, {
+                ...newCar,
+            });
             if (responseData?.status === 201) {
                 // After deleting fetch all car details again
                 await this.fetchAllCars();
@@ -39,7 +34,7 @@ const actions = {
     async deleteCar(carId) {
         try {
             let responseData = await axios.delete(
-                `${useRuntimeConfig().public.apiBase}/cardata/${carId}`
+                `${this.apiBase}/cardata/${carId}`
             );
             return responseData;
         } catch (e) {
@@ -50,7 +45,7 @@ const actions = {
     async updateCar(editedCar) {
         try {
             let responseData = await axios.put(
-                `${useRuntimeConfig().public.apiBase}/cardata/${editedCar.id}`,
+                `${this.apiBase}/cardata/${editedCar.id}`,
                 {
                     ...editedCar,
                 }
@@ -68,7 +63,7 @@ const actions = {
         try {
             this.isLoaderStarted = true;
             let responseData = await axios.get(`	
-        ${useRuntimeConfig().public.apiBase}/cardata/${id}`);
+        ${this.apiBase}/cardata/${id}`);
             this.detailsOfSelectedCar = responseData.data;
             this.isLoaderStarted = false;
             return responseData;
@@ -97,6 +92,7 @@ const useCarDataStore = defineStore("carData", {
             carsData: [],
             detailsOfSelectedCar: null,
             isLoaderStarted: false,
+            apiBase: "",
         };
     },
     getters,
